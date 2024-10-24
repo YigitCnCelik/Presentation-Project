@@ -1,2 +1,2 @@
-backend\db_data
-backend\node_modules
+../backend/node_modules
+../backend/db_data
