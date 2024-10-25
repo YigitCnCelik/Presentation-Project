@@ -9,6 +9,7 @@ export class PresentationController {
       const result = await pool.query('SELECT * FROM presentations ORDER BY last_updated');
       res.json(result.rows);
     } catch (err) {
+      console.error('Error in createPresentation:', err); // Hata detayını logla
       res.status(500).send('Server error');
     }
   }
