@@ -71,11 +71,9 @@ This is a full-stack presentation management application built with a Node.js ba
    ```bash
    npm run dev
    ```
-## Demo Video
+## Video Demonstration
 
-Watch the demo of the application below:
+You can watch a demonstration of the application below:
 
-[![Demo Video](https://youtu.be/K4IiKrsYrCA.jpg)](https://youtu.be/K4IiKrsYrCA)
-
-...
+[![Watch the video](https://img.youtube.com/vi/K4IiKrsYrCA/0.jpg)](https://youtu.be/K4IiKrsYrCA)
 
