@@ -75,5 +75,5 @@ This is a full-stack presentation management application built with a Node.js ba
 
 You can watch a demonstration of the application below:
 
-[![Watch the video](https://img.youtube.com/vi/K4IiKrsYrCA/0.jpg)](https://youtu.be/K4IiKrsYrCA)
+[![Watch the video](https://img.youtube.com/vi/K4IiKrsYrCA/0.jpg)](https://youtu.be/Mz1j_UCxi1M)
 
