@@ -71,11 +71,11 @@ This is a full-stack presentation management application built with a Node.js ba
    ```bash
    npm run dev
    ```
+## Demo Video
 
-## Running Tests
+Watch the demo of the application below:
 
-To ensure everything is working correctly, run the tests in the backend as shown in the Backend Setup section.
+[![Demo Video](https://youtu.be/K4IiKrsYrCA.jpg)](https://youtu.be/K4IiKrsYrCA)
 
-## License
+...
 
-This project is licensed under the ISC License.
