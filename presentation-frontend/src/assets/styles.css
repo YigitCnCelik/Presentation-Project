@@ -1,0 +1,40 @@
+/* styles.css */
+.select-container {
+    width: 5px; /* Dropdown genişliği */
+    position: relative; /* Menü konumlandırmasını ayarlamak için */
+  }
+  
+  .select-control {
+    background-color: black; /* Arka plan rengi */
+    color: white; /* Yazı rengi */
+    border: 1px solid #ccc; /* Sınır rengi */
+    box-shadow: none; /* Gölgeyi kaldır */
+  }
+  
+  .select-control:hover {
+    border: 1px solid #999; /* Hover durumunda sınır rengi */
+  }
+  
+  .select-option {
+    background-color: black; /* Seçim ve hover durumu için arka plan rengi */
+    color: white; /* Yazı rengi */
+  }
+  
+  .select-menu {
+    z-index: 10; /* Menü açıldığında üstte görünmesi için */
+  }
+  
+  /* Buton stilleri */
+  .sort-button {
+    background-color: black; /* Buton arka plan rengi */
+    color: white; /* Buton yazı rengi */
+    border: none; /* Sınır yok */
+    padding: 8px 16px; /* İç boşluk */
+    cursor: pointer; /* İmleç değişikliği */
+    transition: background-color 0.3s; /* Geçiş efekti */
+  }
+  
+  .sort-button:hover {
+    background-color: #444; /* Hover durumunda arka plan rengi */
+  }
+  

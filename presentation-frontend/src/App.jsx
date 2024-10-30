@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/Dashboard';
+import CreatePresentationForm from './components/CreatePresentationForm';
 import { timeAgo } from './utility/timeAgo';
 
 const BASE_URL = 'http://localhost:5000/presentations';
@@ -18,7 +20,8 @@ function App() {
     }
   };
 
-  const addPresentation = async (newPresentation) => {
+  const createPresentation = async (newPresentation) => {
+    console.log(newPresentation);
     try {
       const response = await fetch(`${BASE_URL}`, {
         method: 'POST',
@@ -63,20 +66,38 @@ function App() {
     }
   };
 
+  const handleLinkUpdate = async (id, updatedData) => {
+    const updatedPresentation = presentations.find((p) => p.id === id);
+    if (updatedPresentation) {
+      await updatePresentation(id, { ...updatedPresentation, thumbnail: updatedData });
+    }
+  };
+
   useEffect(() => {
     fetchPresentations();
   }, []);
 
   return (
-    <div>
-      <h1>Presentations</h1>
-      <Dashboard
-        presentations={presentations}
-        onTitleUpdate={handleTitleUpdate}
-        onDelete={deletePresentation}
-        timeAgo={timeAgo}
-      />
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Dashboard
+              presentations={presentations}
+              onTitleUpdate={handleTitleUpdate}
+              onDelete={deletePresentation}
+              onLinkUpdate={handleLinkUpdate}
+              timeAgo={timeAgo}
+            />
+          }
+        />
+        <Route
+          path="/create"
+          element={<CreatePresentationForm createPresentation={createPresentation} />}
+        />
+      </Routes>
+    </Router>
   );
 }
 

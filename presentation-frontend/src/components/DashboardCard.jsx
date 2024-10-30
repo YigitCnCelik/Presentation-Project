@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import CardHeader from './CardHeader';
-import CardImage from './CardImage';
 import CardFooter from './CardFooter';
 import { NewsHeaderCard } from 'react-ui-cards';
-import MenuComponent from './MenuComponent';  // Menü bileşenini içe aktarın
-import { FaEllipsisV } from 'react-icons/fa'; // 3 çizgili simge için ikonu kullanıyoruz
 
-const DashboardCard = ({ presentationName, lastUpdated, thumbnail, createdBy, onTitleUpdate }) => {
+const DashboardCard = ({ presentationName, lastUpdated, thumbnail, createdBy, onTitleUpdate, onDelete, onLinkUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(presentationName);
-  const [showMenu, setShowMenu] = useState(false);  // Menü durumunu takip etmek için
+  const [showMenu, setShowMenu] = useState(false); // State to control menu visibility
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [link, setLink] = useState(''); // State to store the link
 
   const handleTitleChange = (e) => setTitle(e.target.value);
 
@@ -20,28 +18,28 @@ const DashboardCard = ({ presentationName, lastUpdated, thumbnail, createdBy, on
     }
   };
 
-  const toggleMenu = () => setShowMenu((prev) => !prev);
+  const handleLinkSubmit = async () => {
+    const updatedPresentation = link;
+    await onLinkUpdate(updatedPresentation); // Call the passed function with the new link
+    setShowModal(false); // Close the modal
+    setLink(''); // Reset the link input
+  };
 
   return (
-    <article className="relative flex flex-col justify-center p-4 bg-white rounded shadow-sm max-w-[282px]">
-      {/* Sağ üst köşede üç çizgi butonu */}
-      <button onClick={toggleMenu} className="absolute top-2 right-2 p-1">
-        <FaEllipsisV size={18} />
-      </button>
-
-      {/* Menü görünümü */}
+    <article
+      className="relative flex flex-col justify-center p-4 bg-white rounded shadow-sm max-w-[282px]"
+      onMouseEnter={() => setShowMenu(true)} // Show menu on hover
+      onMouseLeave={() => setShowMenu(false)} // Hide menu when not hovering
+    >
+      {/* Menu that appears on hover */}
       {showMenu && (
-        <div className="absolute top-8 right-2 z-10">
-          <MenuComponent
-            onEdit={() => {
-              setIsEditing(true);  // Edit moduna geç
-              setShowMenu(false);  // Menü kapanır
-            }}
-          />
+        <div className="absolute top-2 right-2 z-10 bg-white border border-gray-300 rounded shadow-lg p-2">
+          <button onClick={() => setIsEditing(true)} className="block w-full text-left">Rename</button>
+          <button onClick={() => setShowModal(true)} className="block w-full text-left">Edit</button>
+          <button onClick={onDelete} className="block w-full text-left text-red-600">Delete</button>
         </div>
       )}
 
-      {/* Kartın ana içeriği */}
       <NewsHeaderCard
         title={
           isEditing ? (
@@ -62,6 +60,26 @@ const DashboardCard = ({ presentationName, lastUpdated, thumbnail, createdBy, on
         thumbnail={thumbnail}
       />
       <CardFooter />
+
+      {/* Modal for editing the link */}
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded p-5 max-w-sm mx-auto">
+            <h3 className="text-lg mb-2">Edit Thumbnail</h3>
+            <input
+              type="text"
+              value={link}
+              onChange={(e) => setLink(e.target.value)}
+              placeholder="Enter new thumbnail link"
+              className="border border-gray-300 rounded p-1 w-full mb-4"
+            />
+            <div className="flex justify-end">
+              <button onClick={() => setShowModal(false)} className="mr-2 text-gray-500">Cancel</button>
+              <button onClick={handleLinkSubmit} className="bg-blue-500 text-white rounded px-3 py-1">Submit</button>
+            </div>
+          </div>
+        </div>
+      )}
     </article>
   );
 };

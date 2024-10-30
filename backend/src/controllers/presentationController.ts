@@ -30,28 +30,44 @@ export class PresentationController {
 
   // Rename a presentation
   static async renamePresentation(req: Request, res: Response): Promise<void> {
+    console.log("Request:", req.body)
     const { id } = req.params;
-    const { name } = req.body;
-
-    if (!name || name.trim() === "") {
-      res.status(400).send('Invalid name');
+    const { name, thumbnail } = req.body;
+  
+    // Check if both fields are empty
+    if ((!name || name === "") && (!thumbnail || thumbnail === "")) {
+      res.status(400).send('Invalid name or thumbnail');
     }
-
+  
     try {
-      const result = await pool.query(
-        'UPDATE presentations SET name = $1, last_updated = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *',
-        [name, id]
-      );
-
-      if (result.rowCount === 0) {
-        res.status(404).send('Presentation not found');
+      // Update only the name if provided
+      if (name && name.trim() !== "") {
+        const result = await pool.query(
+          'UPDATE presentations SET name = $1, last_updated = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *',
+          [name, id]
+        );
+  
+        if (result.rowCount === 0) {
+          res.status(404).send('Presentation not found');
+        }
       }
-
-      res.json(result.rows[0]);
+  
+      // Update only the thumbnail if provided
+      if (thumbnail && thumbnail.trim() !== "") {
+        await pool.query(
+          'UPDATE presentations SET thumbnail = $1, last_updated = CURRENT_TIMESTAMP WHERE id = $2',
+          [thumbnail, id]
+        );
+      }
+  
+      // If at least one update was successful, respond with a success message
+      res.status(200).send('Presentation updated successfully');
     } catch (err) {
+      console.error('Error updating presentation:', err); // Log the error for debugging
       res.status(500).send('Server error');
     }
   }
+  
 
   // Delete a presentation
   static async deletePresentation(req: Request, res: Response): Promise<void> {

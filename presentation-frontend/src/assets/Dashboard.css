@@ -1,0 +1,30 @@
+/* Dashboard.css */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.75rem; /* Equivalent to mt-7 in Tailwind */
+    max-width: 100%;
+    width: 1793px; /* Adjust as needed */
+  }
+  
+  .header-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .create-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem; /* Equivalent to gap-5 in Tailwind */
+    margin-top: 1.25rem; /* Equivalent to mt-5 in Tailwind */
+  }
+  
+  .cards-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem; /* Equivalent to gap-5 in Tailwind */
+    margin-top: 1.25rem; /* Equivalent to mt-5 in Tailwind */
+    width: 100%;
+  }
+  
